@@ -29,6 +29,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // -------------------- ROUTES --------------------
 
+
+
+app.get("/test", (req, res) => {
+  res.json({
+    status: "Backend is working!",
+    time: new Date()
+  });
+});
 // Sample route
 app.get('/', (req, res) => {
   res.send('Welcome to Artiq Backend');
