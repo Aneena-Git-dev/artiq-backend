@@ -13,6 +13,13 @@ const {
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 
+
+router.get("/", (req, res) => {
+  res.json({
+    message: "User API is working"
+  });
+});
+
 // protected routes
 router.get("/me", protect, getMe);
 router.put("/update", protect, (req, res, next) => {

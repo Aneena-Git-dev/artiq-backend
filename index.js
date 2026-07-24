@@ -15,8 +15,16 @@ const adminRoutes = require('./routes/adminRoutes');
 
 
 
-// Enable CORS
-app.use(cors());
+// Enable CORS for production and development environments
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://artiq-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 // Parse JSON bodies
 app.use(express.json());
