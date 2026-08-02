@@ -31,8 +31,20 @@ exports.registerUser = async (req, res) => {
       token: generateToken(newUser._id),
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Register Error:", err);
+
+  // Duplicate email error
+  if (err.code === 11000) {
+    return res.status(400).json({
+      message: "User already exists",
+    });
   }
+
+  res.status(500).json({
+    message: "Something went wrong. Please try again.",
+  });
+}
+
 };
 
 exports.loginUser = async (req, res) => {
@@ -110,6 +122,14 @@ exports.updateUser = async (req, res) => {
     });
   } catch (err) {
     console.error("updateUser Error:", err);
-    res.status(500).json({ message: err.message });
-  }
+    if (err.code === 11000) {
+        return res.status(400).json({
+            message: "User already exists"
+        });
+    }
+
+    res.status(500).json({
+        message: "Something went wrong"
+    });
+    }
 };
